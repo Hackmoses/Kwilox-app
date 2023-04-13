@@ -1,13 +1,17 @@
 
 const express = require("express")
+const dotenv = require("dotenv").config()
+const {errorHandler} = require("./backend/middlewares/errorMiddleware")
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.get("/", (req, res) => {
-    res.send("Welcome to Kwilox Nigeria")
-})
+app.use(express.json())
+app.use(express.urlencoded({extended:false }))
 
+app.use("/api/drinks", require("./backend/routes/drinkRoutes"))
+
+app.use(errorHandler)
 
 app.listen(PORT, ()=> {
     console.log("Server runing at 5000")
