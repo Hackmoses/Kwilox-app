@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000
 app.use(express.json())
 app.use(express.urlencoded({extended:false }))
 
-app.use("/api/drinks", require("./backend/routes/drinkRoutes"))
+app.use("/api/drinks", require("./backend/routes/itemRoutes"))
 
 app.use(errorHandler)
 

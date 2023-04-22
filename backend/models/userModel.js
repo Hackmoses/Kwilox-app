@@ -35,6 +35,10 @@ const userSchema = mongoose.Schema({
            /^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]+$/,
            "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and a special characters"
        ]
+    },
+    role: {
+        type: Number,
+        default: 0
     }
 
 }, {

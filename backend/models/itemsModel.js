@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const drinkSchema = mongoose.Schema ({
+const itemSchema = mongoose.Schema ({
 
     title: {
         type: String,
@@ -16,4 +16,4 @@ const drinkSchema = mongoose.Schema ({
     timestamps : true
 })
 
-module.exports = mongoose.model("Drink", drinkSchema)
+module.exports = mongoose.model("Item", itemSchema)
