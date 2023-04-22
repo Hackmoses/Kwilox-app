@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:false }))
 
 app.use("/api/items", require("./backend/routes/itemRoutes"))
 
-app.use("/api/user", require("./backend/routes/userRoutes"))
+app.use("/api", require("./backend/routes/userRoutes"))
 
 app.use(errorHandler)
 
