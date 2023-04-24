@@ -4,6 +4,8 @@ const express = require("express")
 const router = express.Router()
 const { getItems, postItems, updateItems, deleteItems } = require("../controllers/itemController")
 
+const { isAdmin } = require("../middlewares/adminMiddleware")
+
 
 router.get("/", getItems)
 router.post("/", postItems)

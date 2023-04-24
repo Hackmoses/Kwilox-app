@@ -16,6 +16,8 @@ app.use("/api/items", require("./backend/routes/itemRoutes"))
 
 app.use("/api", require("./backend/routes/userRoutes"))
 
+app.use("/api/users", require("./backend/routes/registeredUsersRoutes"))
+
 app.use(errorHandler)
 
 app.listen(PORT, ()=> {
