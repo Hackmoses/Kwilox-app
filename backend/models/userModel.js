@@ -30,7 +30,12 @@ const userSchema = mongoose.Schema({
     password: {
         type : String,
         required :[true, "Please create a password"],
-        minlength: [6, 'password must have at least six(6) characters']
+        match: [
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", 
+            "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number"
+        ],
+        min: [6, 'Password must have at least 6 characters'],
+        max: 12
     },
     role: {
         type: Number,

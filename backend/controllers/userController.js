@@ -79,7 +79,6 @@ const loginUser = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error("Invalid Credential")
     }
-
 }
 )
 
@@ -97,7 +96,11 @@ const loggedIn = asyncHandler(async (req, res) => {
 
 
 const logoutUser = (req, res) => {
-    res.status(200).json({message:"User Logged out succesfully"})
+    res.clearCookie('token');
+    res.status(200).json({
+        success: true,
+        message: "Logged out"
+    })
 }
 
 const generateToken = (id) => {
