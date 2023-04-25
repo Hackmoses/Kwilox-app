@@ -31,7 +31,7 @@ const registerUser = asyncHandler( async (req, res) => {
         age,
         phoneNumber,
         password:hashedPassword,
-        role
+        role: role || "basic"
     })
 
     if(user){
@@ -42,6 +42,7 @@ const registerUser = asyncHandler( async (req, res) => {
         email: user.email,
         age: user.age,
         phoneNumber: user.phoneNumber,
+        role:user.role,
         token: generateToken(user._id)
         })
         
@@ -72,6 +73,7 @@ const loginUser = asyncHandler( async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role,
         token: generateToken(user._id)
         })
         

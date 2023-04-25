@@ -4,12 +4,11 @@ const express = require("express")
 const router = express.Router()
 const { getItems, postItems, updateItems, deleteItems } = require("../controllers/itemController")
 
-const { isAdmin } = require("../middlewares/adminMiddleware")
+const {protect} = require("../middlewares/authMiddleware")
 
-
-router.get("/", getItems)
-router.post("/", postItems)
-router.put("/:id", updateItems)
-router.delete("/:id", deleteItems)
+router.get("/", protect, getItems)
+router.post("/", protect, postItems)
+router.put("/:id", protect, updateItems)
+router.delete("/:id", protect, deleteItems)
 
 module.exports = router

@@ -38,8 +38,10 @@ const userSchema = mongoose.Schema({
         max: 12
     },
     role: {
-        type: Number,
-        default: 0
+        type:String,
+        default: "user",
+        enum:["user", "admin"]
+        
     }
 
 }, {
