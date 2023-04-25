@@ -11,13 +11,21 @@ const getRegisteredUsers = asyncHandler( async(req, res) => {
 
 const searchUserByEmail = asyncHandler( async(req, res) => {
     const { email } = req.body
+
+    if (!email) {
+        res.status(401)
+        throw new Error("Please provide an email")
+    }
+
     let user = await User.find({ email: email }).exec()
-    if(user){
-        res.status(200).json({data:user}) 
-    } else{
+
+    if(!user){
         res.status(401)
         throw new Error("Invalid User Email")
     }
+    if(user){
+        res.status(200).json({data:user}) 
+    } 
 })
 
 module.exports = {

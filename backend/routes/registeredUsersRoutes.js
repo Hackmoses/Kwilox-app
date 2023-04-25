@@ -8,7 +8,7 @@ const {getRegisteredUsers, searchUserByEmail} = require("../controllers/register
 const {protect, isAdmin } = require("../middlewares/authMiddleware")
 
 router.get("/", protect, isAdmin('readAny', 'item'), getRegisteredUsers)
-router.post("/search", isAdmin('createAny', 'item'), searchUserByEmail)
+router.post("/search", protect, isAdmin('createAny', 'item'), searchUserByEmail)
 
 
 module.exports = router
