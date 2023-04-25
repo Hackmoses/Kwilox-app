@@ -1,10 +1,9 @@
 
 const mongoose = require("mongoose")
 
-//const validator = require('validator');
-const { isEmail }= require('validator/lib/isEmail')
 
 const userSchema = mongoose.Schema({
+    //Creating user data model
     firstName : {
         type : String,
         required :[true, "Please enter your firstName"]
@@ -32,14 +31,11 @@ const userSchema = mongoose.Schema({
     password: {
         type : String,
         required :[true, "Please create a password"],
-        /*match: [
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", 
-            "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number"
-        ], */
-        min: [6, 'Password must have at least 6 characters'],
+        min: [8, 'Password must have at least 8 characters'],
         max: 12
     },
     role: {
+        //creating role for users/admin
         type:String,
         default: "user",
         enum:["user", "admin"]

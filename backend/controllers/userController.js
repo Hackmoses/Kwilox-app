@@ -5,8 +5,9 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const User = require("../models/userModel")
 
-
 const registerUser = asyncHandler( async (req, res) => {
+
+    //destructuring from req.body
     const {firstName, lastName, email, age, phoneNumber, password, role } = req.body
 
     if (!firstName || !lastName || !email || !age || !phoneNumber || !password || !role) {
@@ -14,12 +15,12 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new Error("Please enter all required field")
     }
 
-
+    //Confirming password length
     if(password.length < 8) {
         res.status(400);
         throw new Error('Password must be at least 8 characters long');
         }
-
+    //Checking if user already exist
     const userExists = await User.findOne({email})
 
     if (userExists) {
@@ -27,9 +28,11 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new Error("User Already Exist")
     }
 
+    //salting password using bycrypt
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
+    //creating user
     const user = await User.create({
         firstName,
         lastName,
@@ -71,7 +74,7 @@ const loginUser = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error("User not found, please register!!")
     }
-
+    //confirming if password and email match
     if(user && (await bcrypt.compare(password, user.password))){
         res.status(201).json({
         message: "Login Succesfull",
@@ -90,18 +93,6 @@ const loginUser = asyncHandler( async (req, res) => {
 }
 )
 
-const loggedIn = asyncHandler(async (req, res) => {
-    
-    const {_id, firstName, lastName, email} = await User.findById(req.user.id)
-
-    res.status(200).json({
-        id: _id,
-        firstName,
-        lastName,
-        email
-    })
-})
-
 
 const logoutUser = (req, res) => {
     res.clearCookie('token');
@@ -112,6 +103,7 @@ const logoutUser = (req, res) => {
 }
 
 const generateToken = (id) => {
+    //generating token with jwt
     return jwt.sign({id }, `${process.env.JWT_SECRET}`, {
         expiresIn : "14d",
     })
@@ -120,6 +112,5 @@ const generateToken = (id) => {
 module.exports = {
     registerUser,
     loginUser,
-    loggedIn,
     logoutUser
 }

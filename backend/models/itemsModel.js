@@ -2,7 +2,7 @@
 const mongoose = require("mongoose")
 
 const itemSchema = mongoose.Schema ({
-
+    //Creating Drink/confectionaries data model
     title: {
         type: String,
         required : [true, "Please add the title"]
