@@ -5,9 +5,10 @@ const router = express.Router()
 
 const {getRegisteredUsers, searchUserByEmail} = require("../controllers/registeredUserController")
 
+const {protect, isAdmin } = require("../middlewares/authMiddleware")
 
-router.get("/", getRegisteredUsers)
-router.post("/search", searchUserByEmail)
+router.get("/", protect, isAdmin('readAny', 'item'), getRegisteredUsers)
+router.post("/search", isAdmin('createAny', 'item'), searchUserByEmail)
 
 
 module.exports = router

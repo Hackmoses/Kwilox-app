@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken")
 
 const User = require("../models/userModel")
 
+const {roles} = require("../controllers/roles")
+
 const protect = asyncHandler( async (req, res, next) => {
 
     let token
@@ -33,9 +35,27 @@ const protect = asyncHandler( async (req, res, next) => {
     }
 
 }
-
 )
 
+const isAdmin = function(action, resource) {
+    return async (req, res, next) => {
+     try {
+      const permission = roles.can(req.user.role)[action](resource);
+      if (!permission.granted) {
+       return res.status(401).json({
+        error: "You  permission to perform this action kindly contact ADMIN"
+       });
+      }
+      next()
+     } catch (error) {
+      next(error)
+     }
+    }
+   }
+
+
+
 module.exports = {
-    protect
+    protect,
+    isAdmin
 }

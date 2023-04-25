@@ -9,7 +9,7 @@ const User = require("../models/userModel")
 const registerUser = asyncHandler( async (req, res) => {
     const {firstName, lastName, email, age, phoneNumber, password, role } = req.body
 
-    if (!firstName || !lastName || !email || !age || !phoneNumber || !password ) {
+    if (!firstName || !lastName || !email || !age || !phoneNumber || !password || !role) {
         res.status(400)
         throw new Error("Please enter all required field")
     }
@@ -31,7 +31,7 @@ const registerUser = asyncHandler( async (req, res) => {
         age,
         phoneNumber,
         password:hashedPassword,
-        role: role || "basic"
+        role
     })
 
     if(user){
